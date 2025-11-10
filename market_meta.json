@@ -1,0 +1,1 @@
+{"shm_name": "market_shm_v1", "n": 4, "dtype_descr": "[('symbol', '|S12'), ('price', '<f8')]", "symbols": ["AAPL", "MSFT", "GOOG", "AMZN"]}
