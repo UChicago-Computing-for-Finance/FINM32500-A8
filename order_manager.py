@@ -75,3 +75,13 @@ if __name__ == "__main__":
 
     om = OrderManager(host=args.host, port=args.port)
     om.start()
+
+def main():
+    import argparse
+    p = argparse.ArgumentParser(description="OrderManager TCP server")
+    p.add_argument("--host", default="127.0.0.1", help="Host to bind")
+    p.add_argument("--port", type=int, default=10000, help="Port to bind (default: 10000)")
+    args = p.parse_args()
+
+    om = OrderManager(host=args.host, port=args.port)
+    om.start()

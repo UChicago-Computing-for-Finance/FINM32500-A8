@@ -206,3 +206,27 @@ if __name__ == "__main__":
 
     gw = GatewayServer(host=args.host, port=args.port, symbols=symbols, initial_prices=initial_prices)
     gw.start()
+
+def main():
+    args = parse_args()
+    if args.interval:
+        BROADCAST_INTERVAL = args.interval
+    if args.news_interval:
+        NEWS_INTERVAL = args.news_interval
+
+    initial_prices = None
+    symbols = None
+    if args.csv:
+        try:
+            initial_prices = load_prices_from_csv(args.csv)
+            symbols = list(initial_prices.keys())
+            print(f"[Gateway] Loaded {len(symbols)} symbols from CSV.")
+        except Exception as e:
+            print(f"[Gateway] Failed to load CSV {args.csv}: {e}")
+            raise
+
+    if args.symbols:
+        symbols = [s.strip().upper() for s in args.symbols.split(',') if s.strip()]
+
+    gw = GatewayServer(host=args.host, port=args.port, symbols=symbols, initial_prices=initial_prices)
+    gw.start()

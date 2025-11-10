@@ -184,3 +184,14 @@ if __name__ == "__main__":
         print("\n[OrderBook] exiting (KeyboardInterrupt)")
     finally:
         ob.close()
+
+def main():
+    args = parse_args()
+    symbols = [s.strip().upper() for s in args.symbols.split(',') if s.strip()]
+    ob = OrderBook(args.gateway_host, args.gateway_port, symbols, shm_name=args.shm_name)
+    try:
+        ob.run()
+    except KeyboardInterrupt:
+        print("\n[OrderBook] exiting (KeyboardInterrupt)")
+    finally:
+        ob.close()

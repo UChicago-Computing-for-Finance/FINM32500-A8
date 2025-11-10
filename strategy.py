@@ -257,3 +257,23 @@ if __name__ == "__main__":
                      order_manager_host=args.order_manager_host,
                      order_manager_port=args.order_manager_port)
     strat.run()
+
+def main():
+    args = parse_args()
+    if not os.path.exists(META_FILE):
+        print(f"[Strategy] {META_FILE} not found. Start OrderBook first.")
+        sys.exit(1)
+    with open(META_FILE, 'r') as f:
+        meta = json.load(f)
+    default_symbol = meta['symbols'][0]
+    symbol = args.symbol.upper() if args.symbol else default_symbol
+    strat = Strategy(symbol,
+                     short_w=args.short,
+                     long_w=args.long,
+                     bullish_threshold=args.bullish,
+                     bearish_threshold=args.bearish,
+                     gateway_host=args.gateway_host,
+                     gateway_port=args.gateway_port,
+                     order_manager_host=args.order_manager_host,
+                     order_manager_port=args.order_manager_port)
+    strat.run()
